@@ -28,6 +28,20 @@
   color: #61dafb;
 }
 
+.border-wrapper::after {
+  content: "";
+  display: block;
+  height: 2px;
+  width: 78%;
+  opacity: 0.5;
+  background-color: rgb(96, 119, 209);
+  margin: 0 auto;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
