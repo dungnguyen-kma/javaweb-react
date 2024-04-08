@@ -5,7 +5,7 @@ tạo bản sao dự án: sử dụng commant prompt
 
 ## Available Scripts/ lưu ý: các script bên dưới sử dụng với project javaweb-react vừa clone về
 
-### project đã clone thì không cần clone lại, chỉ cần script kéo code mới nhất về
+## project đã clone thì không cần clone lại, chỉ cần script kéo code mới nhất về
 
 cài đặt dự án ( cài đặt mode_modules/libraries/framework)
 ### `npm install`
