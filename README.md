@@ -5,19 +5,21 @@ tạo bản sao dự án: sử dụng commant prompt
 
 ## Available Scripts/ lưu ý: các script bên dưới sử dụng với project javaweb-react vừa clone về
 
-In the project directory, you can run:
-### `npm install`
+### project đã clone thì không cần clone lại, chỉ cần script kéo code mới nhất về
 
 cài đặt dự án ( cài đặt mode_modules/libraries/framework)
-
-### `npm start`
+### `npm install`
 
 Khởi chạy dự án tại thư mục chứa dự án
-
-### `json-server --watch db.json --port 3001` 
+### `npm start`
 
 khởi chạy json-server
-
-### `git pull origin main`
+### `json-server --watch db.json --port 3001` 
 
 kéo code mới nhất về dự án
+### `git pull origin main`
+
+link tham khảo các template giao diện 
+### `https://dribbble.com/`
+
+
