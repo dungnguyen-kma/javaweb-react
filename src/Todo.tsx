@@ -96,7 +96,7 @@ function Todo() {
                     className=" pr-4 size-6 text-orange-500"
                     icon={faCircleCheck}
                   />
-                  <span className="text-lg opacity-50 line-through">
+                  <span className=" text-lg opacity-50 line-through">
                     {job?.text}
                   </span>
                 </div>

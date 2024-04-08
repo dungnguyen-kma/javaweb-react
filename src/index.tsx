@@ -4,9 +4,7 @@ import "./index.css";
 import App from "./App";
 import Todo from "./Todo";
 import reportWebVitals from "./reportWebVitals";
-import UseEffectTh2 from "./learn_hooks/UseEffectTh2";
-import UseEffectTh3 from "./learn_hooks/UseEffectTh3";
-import UseEffectTh1 from "./learn_hooks/UseEffectTh1";
+import UseEffectWithTimer from "./learn_hooks/UseEffectWithTimer";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -14,14 +12,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     {/* <Todo /> */}
-    <App />
-    {/* <UseEffectTh1/> */}
-    {/* <UseEffectTh2/> */}
-    {/* <UseEffectTh3/> */}
+    {/* <App/> */}
+    {/* <UseEffectWithTimer/> */}
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

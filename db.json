@@ -1,34 +1,19 @@
 {
   "todos": [
     {
-      "text": "quet nha",
       "status": 0,
-      "id": 7
-    },
-    {
-      "text": "lau nha",
-      "status": 1,
-      "id": 8
-    },
-    {
-      "text": "personnal work No.4",
-      "status": 1,
-      "id": 10
-    },
-    {
-      "text": "personnal work No.5",
-      "status": 0,
-      "id": 11
+      "text": "test",
+      "id": 4
     },
     {
       "status": 0,
-      "text": "test 2",
-      "id": 14
+      "text": "ggggggg",
+      "id": 5
     },
     {
       "status": 0,
-      "text": "test 3",
-      "id": 15
+      "text": "gggggg",
+      "id": 6
     }
   ]
 }

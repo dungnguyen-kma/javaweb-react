@@ -7,6 +7,7 @@ const tabs: string[] = ["posts", "comments", "albums"];
 function UseEffectTh3() {
   const [datas, setDatas] = useState<any[]>([]);
   const [type, setType] = useState("posts");
+  const [showGoTopBtn, setShowGoTopBtn] = useState(false);
 
   useEffect(() => {
     axios
@@ -17,8 +18,22 @@ function UseEffectTh3() {
       .then((datas) => {
         setDatas(datas);
       });
-    console.log("calling API....")
   }, [type]);
+
+  useEffect(() =>{
+    console.log("using listener....")
+    const handleScroll =() =>{
+      if(window.scrollY >= 200){
+        setShowGoTopBtn(true)
+      }else(
+        setShowGoTopBtn(false)
+      )
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () =>{
+      window.removeEventListener("scroll", handleScroll)
+    }
+  },[])
 
   return (
     <div className="App">
@@ -48,6 +63,14 @@ function UseEffectTh3() {
           <li key={data?.id}>{data?.title || data?.name}</li>
         ))}
       </ul>
+      {showGoTopBtn && (
+        <button
+        className="text-black hover:bg-gray-500 focus:outline-none font-medium text-sm px-4 py-2 bg-gray-300 fixed bottom-20 right-20"
+        onClick={() =>{window.scrollTo(0,0)}}
+      >
+        Go to top
+      </button>
+      )}
     </div>
   );
 }
