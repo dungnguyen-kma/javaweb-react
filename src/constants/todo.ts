@@ -1,4 +1,4 @@
 export const TODO_STATUS = {
-  uncompleted: 0,
-  completed: 1,
-};
+    uncompleted: 0,
+    completed: 1,
+  };

@@ -1,19 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
-import Todo from "./Todo";
 import reportWebVitals from "./reportWebVitals";
-import UseEffectWithTimer from "./learn_hooks/UseEffectWithTimer";
+import { Provider } from "react-redux";
+import store from "./store";
+import Todo from "./components/Todos/Todo";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    {/* <Todo /> */}
-    {/* <App/> */}
-    {/* <UseEffectWithTimer/> */}
+    <Provider store={store}>
+      <Todo />
+    </Provider>
   </React.StrictMode>
 );
 
