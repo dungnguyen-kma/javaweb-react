@@ -4,17 +4,17 @@ const todoInitialState: TodoType[] = [
   {
     status: 0,
     text: "test",
-    id: 4,
+    id: 0,
   },
   {
     status: 0,
     text: "ggggggg",
-    id: 5,
+    id: 1,
   },
   {
     status: 0,
     text: "gggggg",
-    id: 6,
+    id: 2,
   },
 ];
 

@@ -1,21 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../App.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCircle,
-  faCircleCheck,
-  faTrashCan,
-} from "@fortawesome/free-regular-svg-icons";
 import { faBroom } from "@fortawesome/free-solid-svg-icons";
-import { TODO_STATUS } from "../../constants/todo";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import TodoItem from "./TodoItem";
+import { TodoType } from "../../types/todo.type";
+import { addTodo, clearCompleted } from "../../actions/todoActions";
+
+const initialState: TodoType = {
+  status: 0,
+  text: "",
+  id: 0,
+};
 
 function Todo() {
+  const [todoData, setTodoData] = useState<TodoType>(initialState);
   const jobs = useSelector((state: any) => state.todos.todoList);
-  console.log(jobs)
+  const jobCount = jobs.length;
+  const dispatch = useDispatch();
+
+  const handleChange = (event: any) => {
+    setTodoData({
+      ...todoData,
+      text: event.target.value,
+      id: jobCount + 1,
+    });
+  };
+
+  const handleAdd = (event: any) => {
+    event.preventDefault();
+    dispatch(addTodo(todoData));
+    setTodoData(initialState);
+  };
+
+  const handleClearCompleted = () => {
+    dispatch(clearCompleted())
+  }
+
   return (
     <div className="mt-32 text-center flex flex-col items-center">
-      <form className="w-full max-w-lg mb-8">
+      <form className="w-full max-w-lg mb-8" onSubmit={handleAdd}>
         <div className="flex">
           <input
             type="text"
@@ -23,6 +47,10 @@ function Todo() {
             className="block w-full px-4 py-2 text-sm text-gray-900 border rounded-s-3xl bg-red-50 focus:text-black focus:outline-none focus:ring-0"
             placeholder="Bạn đang dự định làm gì?"
             required
+            value={todoData?.text}
+            onChange={(event) => {
+              handleChange(event);
+            }}
           />
           <button
             type="submit"
@@ -36,40 +64,13 @@ function Todo() {
         {jobs.length === 0
           ? "không có công việc nào"
           : jobs.map((job: any, index: React.Key | null | undefined): any => {
-              return (
-                <li
-                  key={index}
-                  className="flex justify-between p-3 border-wrapper relative px-8"
-                >
-                  {job?.status === TODO_STATUS.uncompleted && (
-                    <div className="flex items-center">
-                      <FontAwesomeIcon
-                        className="pr-4 size-6 text-gray-500 hover:cursor-pointer hover:text-gray-700"
-                        icon={faCircle}
-                      />
-                      <span className="text-lg">{job?.text}</span>
-                    </div>
-                  )}
-                  {job?.status === TODO_STATUS.completed && (
-                    <div className="flex items-center">
-                      <FontAwesomeIcon
-                        className=" pr-4 size-6 text-orange-500"
-                        icon={faCircleCheck}
-                      />
-                      <span className=" text-lg opacity-50 line-through">
-                        {job?.text}
-                      </span>
-                    </div>
-                  )}
-                  <FontAwesomeIcon
-                    className="hover:cursor-pointer text-orange-500 hover:text-orange-700 size-4 self-center"
-                    icon={faTrashCan}
-                  />
-                </li>
-              );
+              return <TodoItem key={index} job={job} />;
             })}
 
-        <div className="absolute flex items-center bottom-4 right-16 text-orange-500 hover:text-orange-700 hover:cursor-pointer">
+        <div 
+        className="absolute flex items-center bottom-4 right-16 text-orange-500 hover:text-orange-700 hover:cursor-pointer"
+        onClick={() =>{handleClearCompleted()}}
+        >
           <FontAwesomeIcon icon={faBroom} />
           <div>clear completed</div>
         </div>
