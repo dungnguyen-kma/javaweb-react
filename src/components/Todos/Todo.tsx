@@ -1,23 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../App.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBroom } from "@fortawesome/free-solid-svg-icons";
 import TodoItem from "./TodoItem";
-import { useQuery } from "@tanstack/react-query";
-import { getJobs } from "../../api/todoApi";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { addJob, getJobs } from "../../api/todoApi";
+
+const initialTodo = {
+  text: "",
+  status: 0,
+};
 
 function Todo() {
+  const [newTodo, setNewTodo] = useState<any>(initialTodo);
+  const queryClient = useQueryClient();
+
   const result = useQuery({
     queryKey: ["todos"],
     queryFn: () => getJobs(),
   });
 
-  console.log(result)
+  const mutation = useMutation({
+    mutationFn: (newTodo) => addJob(newTodo),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
+    },
+  });
+
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+    mutation.mutate(newTodo);
+    setNewTodo(initialTodo);
+  };
+
+  const handleChange = (event: any) => {
+    setNewTodo({
+      ...newTodo,
+      text: event.target.value,
+    });
+  };
 
   const jobs = result?.data;
   return (
     <div className="mt-32 text-center flex flex-col items-center">
-      <form className="w-full max-w-lg mb-8">
+      <form className="w-full max-w-lg mb-8" onSubmit={handleSubmit}>
         <div className="flex">
           <input
             type="text"
@@ -25,6 +51,10 @@ function Todo() {
             className="block w-full px-4 py-2 text-sm text-gray-900 border rounded-s-3xl bg-red-50 focus:text-black focus:outline-none focus:ring-0"
             placeholder="Bạn đang dự định làm gì?"
             required
+            onChange={(event) => {
+              handleChange(event);
+            }}
+            value={newTodo?.text}
           />
           <button
             type="submit"
