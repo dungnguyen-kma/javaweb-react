@@ -4,7 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBroom } from "@fortawesome/free-solid-svg-icons";
 import TodoItem from "./TodoItem";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { addJob, getJobs } from "../../api/todoApi";
+import { addJob, deleteJob, getJobs, updateJob } from "../../api/todoApi";
+import { Spin } from "antd";
 
 const initialTodo = {
   text: "",
@@ -19,6 +20,28 @@ function Todo() {
     queryKey: ["todos"],
     queryFn: () => getJobs(),
   });
+
+  const deleteMutation = useMutation({
+    mutationFn: (id) => deleteJob(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
+    },
+  });
+
+  const updateMutation = useMutation({
+    mutationFn: (data: any) => updateJob(data?.id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
+    },
+  });
+
+  const handleDeleteTodo = (id: any) => {
+    deleteMutation.mutate(id);
+  };
+
+  const handleUpdateTodo = (data: any) => {
+    updateMutation.mutate(data);
+  };
 
   const mutation = useMutation({
     mutationFn: (newTodo) => addJob(newTodo),
@@ -68,7 +91,14 @@ function Todo() {
         {jobs?.length === 0
           ? "không có công việc nào"
           : jobs?.map((job: any, index: React.Key | null | undefined): any => {
-              return <TodoItem key={index} job={job} />;
+              return (
+                <TodoItem
+                  key={index}
+                  job={job}
+                  handleDeleteTodo={handleDeleteTodo}
+                  handleUpdateTodo={handleUpdateTodo}
+                />
+              );
             })}
 
         <div className="absolute flex items-center bottom-4 right-16 text-orange-500 hover:text-orange-700 hover:cursor-pointer">
